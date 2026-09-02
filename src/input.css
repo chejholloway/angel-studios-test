@@ -171,11 +171,28 @@
 
 /* CatCard */
 .card-button {
-  @apply w-full text-left overflow-hidden bg-surface border border-border rounded-lg shadow-card hover:shadow-pop transition-shadow duration-150;
+  @apply relative w-full text-left overflow-hidden bg-surface border border-border rounded-lg shadow-card hover:shadow-pop transition-shadow duration-150;
 }
 
 .card-button:focus-visible {
   @apply outline-none ring-2 ring-ring ring-offset-1;
+}
+
+.card-skeleton {
+  @apply absolute inset-x-0 top-0 h-40 flex items-center justify-center bg-ink-50 rounded-lg;
+}
+.card-skeleton.is-loaded {
+  @apply hidden;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  color: var(--color-accent);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .card-image {
