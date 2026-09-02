@@ -12,7 +12,7 @@ A delightful cat image collection application built for the Angel Studios Senior
 - **🎲 Random Cat Fetching** - Get random cat images instantly
 - **✍️ Text Overlay** - Add custom text to cat images
 - **🏷️ Tag Filtering** - Browse cats by categories (cute, fluffy, funny, etc.)
-- **🖼️ Detail View** - Click any cat card to view full-size image with ID and tags (inline expand, modal refactor pending)
+- **🖼️ Detail View** - Click any cat card to open an accessible modal dialog with full-size image, ID, and tags
 - **📱 Mobile-First Design** - Fully responsive across all devices
 - **♿ Accessible** - WCAG 2.1 Level AA compliant with keyboard navigation
 - **🎨 Beautiful UI** - Custom color palette with smooth animations
@@ -85,7 +85,7 @@ The application uses a custom Tailwind theme with these brand colors:
 
 The app uses the [Cat as a Service API](https://cataas.com/doc.html):
 - Base URL: `https://cataas.com`
-- Endpoints: `/cat`, `/cat/:text`, `/cat/:tag`, `/api/tags`
+- Endpoints: `/cat?json=true`, `/cat/says/:text?json=true`, `/cat/:tag?json=true`, `/api/tags`
 
 ## 📁 Project Structure
 
@@ -95,7 +95,7 @@ src/
 │   ├── CatCard.tsx            # Reusable cat image card with hover effects
 │   ├── CatList.tsx            # Grid container with animation stagger
 │   ├── Controls.tsx           # Random cat, text overlay, and tag filter controls
-│   ├── DetailView.tsx         # Full-screen cat detail (currently inline; see roadmap)
+│   ├── DetailView.tsx         # Accessible modal dialog for cat details
 │   ├── Footer.tsx             # App footer
 │   └── Header.tsx             # App header with back button
 ├── services/
@@ -164,7 +164,7 @@ tsc --noEmit
 
 ## 🚧 Roadmap
 
-- [ ] **DetailView Modal** - Convert inline detail view to an accessible Tailwind CSS modal dialog with focus trap and ESC-to-close
+- [x] **DetailView Modal** - Convert inline detail view to an accessible Tailwind CSS modal dialog with focus trap and ESC-to-close
 - [ ] **Image Optimization** - Add `next/image` or equivalent for responsive image loading
 
 ## 🤝 Contributing

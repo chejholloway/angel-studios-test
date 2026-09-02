@@ -22,7 +22,7 @@ A cat image collection application built for the Angel Studios Senior Front End 
 
 ✅ **As a user, I can retrieve a random cat with a text phrase**
 - Text input field allows adding custom text to cat images
-- Uses the `/cat/:text` API endpoint
+- Uses the `/cat/says/:text` API endpoint
 
 ✅ **As a user, I can retrieve a random cat using the tags provided by the API**
 - Dropdown selector with available tags from the API
@@ -35,9 +35,11 @@ A cat image collection application built for the Angel Studios Senior Front End 
 - Respects `prefers-reduced-motion` for accessibility
 
 ✅ **As a user, I can navigate to a "detail" page for a single image**
-- Click on any cat card to view detail view
+- Click on any cat card to open an accessible modal dialog
 - Shows full-size image with cat ID and tags
-- "Back to Catalog" button returns to main view
+- Close via X button, Escape key, backdrop click, or Header back button
+- Focus trap and focus restoration implemented
+- Modal enter/exit animations with reduced-motion support
 
 ### Design Requirements
 ✅ **Semantic HTML**
@@ -68,12 +70,22 @@ A cat image collection application built for the Angel Studios Senior Front End 
 - Reduced motion support
 - Skip to main content link
 - Semantic HTML structure
+- Accessible modal dialog with focus trap
+- Escape key closes modal
+- Backdrop click closes modal
+- Focus returns to triggering element on close
+- Background content marked inert when modal is open
 
 ## Project Structure
 ```
 src/
 ├── components/
-│   └── CatCard.tsx          # Reusable cat image card component
+│   ├── CatCard.tsx          # Reusable cat image card component
+│   ├── CatList.tsx          # Grid container with animation stagger
+│   ├── Controls.tsx         # Random cat, text overlay, and tag filter controls
+│   ├── DetailView.tsx       # Accessible modal dialog for cat details
+│   ├── Footer.tsx           # App footer
+│   └── Header.tsx           # App header with back button
 ├── services/
 │   └── catApi.ts            # Cat as a Service API client
 ├── providers/
@@ -86,7 +98,7 @@ src/
 ## API Integration
 Uses the Cat as a Service API (https://cataas.com/doc.html):
 - `/cat?json=true` - Random cat
-- `/cat/:text?json=true` - Cat with text overlay
+- `/cat/says/:text?json=true` - Cat with text overlay
 - `/cat/:tag?json=true` - Cat by tag
 - `/api/tags` - Available tags
 
@@ -106,7 +118,8 @@ npm run build
 - State management: React useState for cat collection
 - Data fetching: TanStack Query for tags, direct fetch for cats
 - Styling: Tailwind v4 utility classes with custom theme
-- Animations: CSS keyframes with staggered delays
-- Accessibility: WCAG 2.1 Level AA compliant patterns
+- Animations: CSS keyframes with staggered delays and modal transitions
+- Accessibility: WCAG 2.1 Level AA compliant patterns including accessible modal dialog
 - Error handling: Try-catch blocks with console logging
 - Type safety: Full TypeScript coverage with interfaces
+- Modal: Portal-based with focus trap, Escape/backdrop close, focus restoration, and reduced-motion support

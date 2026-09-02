@@ -66,17 +66,17 @@ function App() {
     <div>
       <a
         href="#main-content"
-        className="absolute -top-4 -left-4 w-px h-px overflow-hidden text-xs bg-accent text-white rounded-lg p-4 focus:top-4 focus:left-4 focus:w-auto focus:h-auto focus:z-50"
+        className="skip-link"
       >
         Skip to main content
       </a>
       <Header title="Cat-alog" showBackButton={!!selectedCat} onBackClick={handleCloseDetail} />
 
-      <main id="main-content" className="min-h-screen bg-background" inert={!!selectedCat} aria-hidden={!!selectedCat}>
+      <main id="main-content" className="app-main" inert={!!selectedCat} aria-hidden={!!selectedCat}>
         <DetailView selectedCat={selectedCat} onClose={handleCloseDetail} />
 
-        <section className="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-6 md:mb-8">
-          <p className="text-slate-300 mb-4">Your personal cat collection</p>
+        <section className="content-section">
+          <p className="section-subtitle">Your personal cat collection</p>
           <Controls
             handleRandomCat={handleRandomCat}
             handleCatWithText={handleCatWithText}
@@ -90,7 +90,7 @@ function App() {
         </section>
 
         <section aria-label="Cat collection">
-          <h2 className="text-lg md:text-xl font-bold text-primary mb-4">
+          <h2 className="section-heading">
             Your Collection ({cats.length})
           </h2>
           <CatList cats={cats} onCatClick={handleCatClick} />

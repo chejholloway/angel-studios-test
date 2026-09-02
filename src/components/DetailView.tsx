@@ -98,17 +98,17 @@ export function DetailView({ selectedCat, onClose }: DetailViewProps) {
   }
 
   const dialogClasses = [
-    'relative bg-white rounded-xl shadow-2xl max-w-2xl w-[90vw] max-h-[90vh] overflow-y-auto',
+    'modal-panel',
     isClosing ? 'animate-modal-exit' : 'animate-modal-enter',
   ].join(' ')
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="modal-overlay"
       aria-hidden={!selectedCat}
     >
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+        className="modal-backdrop"
         aria-hidden="true"
         onClick={handleBackdropClick}
       />
@@ -120,23 +120,23 @@ export function DetailView({ selectedCat, onClose }: DetailViewProps) {
         className={dialogClasses}
         onAnimationEnd={handleAnimationEnd}
       >
-        <div className="p-4 md:p-6">
+        <div className="modal-content">
           <img
             src={selectedCat.url}
             alt={`Cat ${selectedCat.id}`}
             loading="lazy"
-            className="w-full h-auto rounded-lg mb-4"
+            className="modal-image"
           />
-          <h2 id="cat-details-heading" className="text-xl font-bold text-primary mb-2">
+          <h2 id="cat-details-heading" className="modal-heading">
             Cat Details
           </h2>
-          <p className="text-gray-600 mb-4">ID: {selectedCat.id}</p>
+          <p className="modal-text">ID: {selectedCat.id}</p>
           {selectedCat.tags && selectedCat.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="tag-list">
               {selectedCat.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm"
+                  className="tag-item"
                 >
                   {tag}
                 </span>
@@ -148,7 +148,7 @@ export function DetailView({ selectedCat, onClose }: DetailViewProps) {
           ref={closeButtonRef}
           onClick={handleClose}
           aria-label="Close details"
-          className="absolute top-3 right-3 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow hover:bg-white focus:outline-none focus:ring-2 focus:ring-accent"
+          className="modal-close-button"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
