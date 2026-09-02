@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, beforeAll, afterEach, afterAll } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { setupServer } from 'msw/node'
 import { http, HttpResponse } from 'msw'
@@ -216,8 +216,9 @@ describe('App', () => {
         await user.click(catCard)
       })
 
+      const modal = screen.getByRole('dialog')
       await waitFor(() => {
-        expect(screen.getByText(/cat details/i)).toBeInTheDocument()
+        expect(within(modal).getByText(/cat details/i)).toBeInTheDocument()
         expect(screen.getByRole('button', { name: /back to catalog/i })).toBeInTheDocument()
       })
     })
@@ -233,8 +234,9 @@ describe('App', () => {
         await user.click(catCard)
       })
 
+      const modal = screen.getByRole('dialog')
       await waitFor(() => {
-        expect(screen.getByText(/id: cat-123/i)).toBeInTheDocument()
+        expect(within(modal).getByText(/id: cat-123/i)).toBeInTheDocument()
       })
     })
 
@@ -249,8 +251,9 @@ describe('App', () => {
         await user.click(catCard)
       })
 
+      const modal = screen.getByRole('dialog')
       await waitFor(() => {
-        expect(screen.getByText('cute', { selector: 'span' })).toBeInTheDocument()
+        expect(within(modal).getByText('cute', { selector: 'span' })).toBeInTheDocument()
       })
     })
 
@@ -273,6 +276,75 @@ describe('App', () => {
       await waitFor(() => {
         expect(screen.getByRole('heading', { name: /cat-alog/i })).toBeInTheDocument()
         expect(screen.queryByText(/cat details/i)).not.toBeInTheDocument()
+      })
+    })
+
+    it('should close modal when Escape is pressed', async () => {
+      const user = userEvent.setup()
+      const randomButton = screen.getByRole('button', { name: /get a random cat/i })
+
+      await user.click(randomButton)
+
+      await waitFor(async () => {
+        const catCard = await screen.findByRole('button', { name: /view cat image/i })
+        await user.click(catCard)
+      })
+
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument()
+      })
+
+      await user.keyboard('{Escape}')
+
+      await waitFor(() => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+      })
+    })
+
+    it('should close modal when backdrop is clicked', async () => {
+      const user = userEvent.setup()
+      const randomButton = screen.getByRole('button', { name: /get a random cat/i })
+
+      await user.click(randomButton)
+
+      await waitFor(async () => {
+        const catCard = await screen.findByRole('button', { name: /view cat image/i })
+        await user.click(catCard)
+      })
+
+      await waitFor(() => {
+        expect(screen.getByRole('dialog')).toBeInTheDocument()
+      })
+
+      const backdrop = document.querySelector('.bg-black\\/60')
+      if (backdrop) {
+        await user.click(backdrop)
+      }
+
+      await waitFor(() => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+      })
+    })
+
+    it('should return to catalog view after closing', async () => {
+      const user = userEvent.setup()
+      const randomButton = screen.getByRole('button', { name: /get a random cat/i })
+
+      await user.click(randomButton)
+
+      await waitFor(async () => {
+        const catCard = await screen.findByRole('button', { name: /view cat image/i })
+        await user.click(catCard)
+      })
+
+      await waitFor(async () => {
+        const backButton = await screen.findByRole('button', { name: /back to catalog/i })
+        await user.click(backButton)
+      })
+
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { name: /cat-alog/i })).toBeInTheDocument()
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
       })
     })
   })

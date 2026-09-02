@@ -72,7 +72,7 @@ function App() {
       </a>
       <Header title="Cat-alog" showBackButton={!!selectedCat} onBackClick={handleCloseDetail} />
 
-      <main id="main-content" className="min-h-screen bg-background">
+      <main id="main-content" className="min-h-screen bg-background" inert={!!selectedCat} aria-hidden={!!selectedCat}>
         <DetailView selectedCat={selectedCat} onClose={handleCloseDetail} />
 
         <section className="bg-white rounded-lg shadow-lg p-4 md:p-6 mb-6 md:mb-8">
