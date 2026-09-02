@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { getRandomCat, getCatWithText, getCatByTag, getAvailableTags, type CatImage } from './services/catApi'
-import { CatCard } from './components/CatCard'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { Controls } from './components/Controls'

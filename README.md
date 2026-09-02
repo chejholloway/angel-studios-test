@@ -12,7 +12,7 @@ A delightful cat image collection application built for the Angel Studios Senior
 - **🎲 Random Cat Fetching** - Get random cat images instantly
 - **✍️ Text Overlay** - Add custom text to cat images
 - **🏷️ Tag Filtering** - Browse cats by categories (cute, fluffy, funny, etc.)
-- **🖼️ Detail View** - Click any cat to see full-size image with details
+- **🖼️ Detail View** - Click any cat card to view full-size image with ID and tags (inline expand, modal refactor pending)
 - **📱 Mobile-First Design** - Fully responsive across all devices
 - **♿ Accessible** - WCAG 2.1 Level AA compliant with keyboard navigation
 - **🎨 Beautiful UI** - Custom color palette with smooth animations
@@ -92,20 +92,25 @@ The app uses the [Cat as a Service API](https://cataas.com/doc.html):
 ```
 src/
 ├── components/
-│   └── CatCard.tsx          # Reusable cat image card
+│   ├── CatCard.tsx            # Reusable cat image card with hover effects
+│   ├── CatList.tsx            # Grid container with animation stagger
+│   ├── Controls.tsx           # Random cat, text overlay, and tag filter controls
+│   ├── DetailView.tsx         # Full-screen cat detail (currently inline; see roadmap)
+│   ├── Footer.tsx             # App footer
+│   └── Header.tsx             # App header with back button
 ├── services/
-│   └── catApi.ts            # Cat as a Service API client
+│   └── catApi.ts              # Cat as a Service API client
 ├── providers/
-│   └── QueryProvider.tsx    # TanStack Query setup
+│   └── QueryProvider.tsx      # TanStack Query setup with devtools
 ├── test/
-│   ├── setup.ts             # Global test configuration
+│   ├── setup.ts               # Global test configuration
 │   ├── utils/
-│   │   └── testHelpers.ts   # Test utilities and factories
+│   │   └── testHelpers.tsx    # Test utilities and data factories
 │   └── mocks/
-│       └── handlers.ts      # MSW API handlers
-├── App.tsx                  # Main application component
-├── main.tsx                 # Application entry point
-└── input.css                # Tailwind v4 with custom theme
+│       └── handlers.ts        # MSW API handlers
+├── App.tsx                    # Main application component
+├── main.tsx                   # React entry point with QueryClientProvider
+└── input.css                  # Tailwind v4 with custom theme
 ```
 
 ## 🎯 User Stories Implemented
@@ -156,6 +161,11 @@ tsc --noEmit
 - [INTERVIEW_NOTES.md](./INTERVIEW_NOTES.md) - Technical implementation details
 - [TESTING.md](./TESTING.md) - Comprehensive testing documentation
 - [Angel Studios Test.md](./Angel%20Studios%20Test.md) - Original interview requirements
+
+## 🚧 Roadmap
+
+- [ ] **DetailView Modal** - Convert inline detail view to an accessible Tailwind CSS modal dialog with focus trap and ESC-to-close
+- [ ] **Image Optimization** - Add `next/image` or equivalent for responsive image loading
 
 ## 🤝 Contributing
 
