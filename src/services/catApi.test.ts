@@ -88,7 +88,7 @@ describe('catApi', () => {
     it('should fetch cat with text overlay and relative URL', async () => {
       const mockResponse = {
         _id: 'cat-456',
-        url: '/cat/hello',
+        url: '/cat/says/hello',
         tags: ['cute'],
       }
 
@@ -101,18 +101,18 @@ describe('catApi', () => {
 
       expect(result).toEqual({
         id: 'cat-456',
-        url: 'https://cataas.com/cat/hello',
+        url: 'https://cataas.com/cat/says/hello',
         tags: ['cute'],
       })
       expect(mockFetch).toHaveBeenCalledWith(
-        expect.stringContaining('https://cataas.com/cat/hello')
+        expect.stringContaining('https://cataas.com/cat/says/hello')
       )
     })
 
     it('should handle absolute URLs from API', async () => {
       const mockResponse = {
         _id: 'cat-789',
-        url: 'https://cataas.com/cat/world',
+        url: 'https://cataas.com/cat/says/world',
         tags: [],
       }
 
@@ -125,7 +125,7 @@ describe('catApi', () => {
 
       expect(result).toEqual({
         id: 'cat-789',
-        url: 'https://cataas.com/cat/world',
+        url: 'https://cataas.com/cat/says/world',
         tags: [],
       })
     })
@@ -133,7 +133,7 @@ describe('catApi', () => {
     it('should encode text properly', async () => {
       const mockResponse = {
         _id: 'cat-101',
-        url: '/cat/hello%20world',
+        url: '/cat/says/hello%20world',
         tags: [],
       }
 

@@ -18,7 +18,7 @@ export const handlers = [
   }),
 
   // Mock cat with text endpoint
-  http.get(`${BASE_URL}/cat/:text`, ({ params }) => {
+  http.get(`${BASE_URL}/cat/says/:text`, ({ params }) => {
     return HttpResponse.json({
       _id: 'cat-456',
       url: `/cat/${params.text}`,
@@ -46,10 +46,10 @@ export const absoluteUrlHandlers = [
     })
   }),
 
-  http.get(`${BASE_URL}/cat/:text`, ({ params }) => {
+  http.get(`${BASE_URL}/cat/says/:text`, ({ params }) => {
     return HttpResponse.json({
       _id: 'cat-789',
-      url: 'https://cataas.com/cat/world',
+      url: `https://cataas.com/cat/${params.text}`,
       tags: [],
     })
   }),

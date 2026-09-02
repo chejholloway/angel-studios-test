@@ -19,7 +19,7 @@ export async function getRandomCat(): Promise<CatImage> {
 }
 
 export async function getCatWithText(text: string): Promise<CatImage> {
-  const response = await fetch(`${BASE_URL}/cat/${encodeURIComponent(text)}?json=true`)
+  const response = await fetch(`${BASE_URL}/cat/says/${encodeURIComponent(text)}?json=true`)
   if (!response.ok) throw new Error('Failed to fetch cat with text')
   const data = await response.json()
   return {
