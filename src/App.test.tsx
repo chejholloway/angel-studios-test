@@ -1,7 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, beforeAll, afterEach, afterAll } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { setupServer } from 'msw/node'
+import { http, HttpResponse } from 'msw'
 import App from './App'
 import { renderWithQueryClient } from './test/utils/testHelpers'
 import { handlers } from './test/mocks/handlers'
@@ -136,6 +137,11 @@ describe('App', () => {
 
     it('should add cat when tag is selected and get button clicked', async () => {
       const user = userEvent.setup()
+
+      await waitFor(() => {
+        expect(screen.getByRole('option', { name: 'cute' })).toBeInTheDocument()
+      })
+
       const select = screen.getByLabelText(/filter by tag/i)
       const getButton = screen.getByRole('button', { name: /get cat by tag/i })
 
@@ -244,7 +250,7 @@ describe('App', () => {
       })
 
       await waitFor(() => {
-        expect(screen.getByText('cute')).toBeInTheDocument()
+        expect(screen.getByText('cute', { selector: 'span' })).toBeInTheDocument()
       })
     })
 

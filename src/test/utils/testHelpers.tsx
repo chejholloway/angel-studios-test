@@ -1,8 +1,7 @@
-import { ReactElement } from 'react'
-import { render, RenderOptions } from '@testing-library/react'
+import type { ReactElement, ReactNode } from 'react'
+import { render, type RenderOptions } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-// Test factory for creating QueryClient
 export const createTestQueryClient = () =>
   new QueryClient({
     defaultOptions: {
@@ -13,38 +12,34 @@ export const createTestQueryClient = () =>
     },
   })
 
-// Wrapper for components that need QueryClient
-export function withQueryClient(ui: ReactElement) {
+function QueryClientWrapper({ children }: { children: ReactNode }) {
   const testQueryClient = createTestQueryClient()
   return (
     <QueryClientProvider client={testQueryClient}>
-      {ui}
+      {children}
     </QueryClientProvider>
   )
 }
 
-// Custom render function with QueryClient
 export function renderWithQueryClient(
   ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>
+  options?: Omit<RenderOptions, 'wrapper'>,
 ) {
-  return render(ui, { ...options, wrapper: withQueryClient })
+  return render(ui, { ...options, wrapper: QueryClientWrapper })
 }
 
-// Mock cat data factory
-export const mockCat = (overrides = {}) => ({
+export const mockCat = (overrides: Partial<Record<string, unknown>> = {}) => ({
   id: 'cat-123',
   url: 'https://cataas.com/cat/cat-123',
   tags: ['cute', 'fluffy'],
   ...overrides,
 })
 
-// Mock cat collection factory
 export const mockCatCollection = (count = 3) =>
   Array.from({ length: count }, (_, i) =>
     mockCat({
       id: `cat-${i}`,
       url: `https://cataas.com/cat/cat-${i}`,
       tags: [`tag-${i}`],
-    })
+    }),
   )
