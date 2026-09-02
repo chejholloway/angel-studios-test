@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { CatCard } from './CatCard'
 
 interface CatListProps {
@@ -17,7 +16,7 @@ export function CatList({ cats, onCatClick, emptyMessage = 'No cats yet! Start b
   }
 
   return (
-    <div className="cat-grid">
+    <div className="cat-grid" data-testid="cat-grid">
       {cats.map((cat) => (
         <div
           key={cat.id}

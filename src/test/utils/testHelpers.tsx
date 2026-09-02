@@ -1,25 +1,6 @@
-import type { ReactElement, ReactNode } from 'react'
+import type { ReactElement } from 'react'
 import { render, type RenderOptions } from '@testing-library/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
-export const createTestQueryClient = () =>
-  new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-        staleTime: Infinity,
-      },
-    },
-  })
-
-function QueryClientWrapper({ children }: { children: ReactNode }) {
-  const testQueryClient = createTestQueryClient()
-  return (
-    <QueryClientProvider client={testQueryClient}>
-      {children}
-    </QueryClientProvider>
-  )
-}
+import { QueryClientWrapper } from './QueryClientWrapper'
 
 export function renderWithQueryClient(
   ui: ReactElement,

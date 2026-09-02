@@ -2,6 +2,8 @@ import { http, HttpResponse } from 'msw'
 
 const BASE_URL = 'https://cataas.com'
 
+let randomCatCounter = 122
+
 export const handlers = [
   // Mock tags endpoint
   http.get(`${BASE_URL}/api/tags`, () => {
@@ -10,9 +12,10 @@ export const handlers = [
 
   // Mock random cat endpoint
   http.get(`${BASE_URL}/cat`, () => {
+    randomCatCounter += 1
     return HttpResponse.json({
-      _id: 'cat-123',
-      url: '/cat/cat-123',
+      _id: `cat-${randomCatCounter}`,
+      url: `/cat/cat-${randomCatCounter}`,
       tags: ['cute', 'fluffy'],
     })
   }),
@@ -55,6 +58,8 @@ export const absoluteUrlHandlers = [
   }),
 
   http.get(`${BASE_URL}/cat/:tag`, ({ params }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    void params
     return HttpResponse.json({
       _id: 'cat-202',
       url: 'https://cataas.com/cat/fluffy',

@@ -73,7 +73,7 @@ function App() {
       <Header title="Cat-alog" showBackButton={!!selectedCat} onBackClick={handleCloseDetail} />
 
       <main id="main-content" className="app-main" inert={!!selectedCat} aria-hidden={!!selectedCat}>
-        <DetailView selectedCat={selectedCat} onClose={handleCloseDetail} />
+        <DetailView key={selectedCat?.id} selectedCat={selectedCat} onClose={handleCloseDetail} />
 
         <section className="content-section">
           <p className="section-subtitle">Your personal cat collection</p>

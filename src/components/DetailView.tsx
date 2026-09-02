@@ -15,13 +15,10 @@ export function DetailView({ selectedCat, onClose }: DetailViewProps) {
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
   const onCloseRef = useRef(onClose)
-  onCloseRef.current = onClose
 
   useEffect(() => {
-    if (selectedCat) {
-      setIsClosing(false)
-    }
-  }, [selectedCat])
+    onCloseRef.current = onClose
+  }, [onClose])
 
   useEffect(() => {
     if (!isClosing) return

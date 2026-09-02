@@ -3,7 +3,7 @@ import { getRandomCat, getCatWithText, getCatByTag, getAvailableTags } from './c
 
 // Mock fetch globally
 const mockFetch = vi.fn()
-global.fetch = mockFetch
+;(globalThis as unknown as { fetch: typeof mockFetch }).fetch = mockFetch
 
 describe('catApi', () => {
   beforeEach(() => {
