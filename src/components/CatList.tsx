@@ -18,11 +18,7 @@ export function CatList({ cats, onCatClick, emptyMessage = 'No cats yet! Start b
   return (
     <div className="cat-grid" data-testid="cat-grid">
       {cats.map((cat) => (
-        <div
-          key={cat.id}
-          className="animate-fade-in-up"
-          style={{ animationDelay: `${cats.indexOf(cat) * 50}ms` }}
-        >
+        <div key={cat.id} className="animate-fade-in-up">
           <CatCard cat={cat} onClick={() => onCatClick(cat)} />
         </div>
       ))}

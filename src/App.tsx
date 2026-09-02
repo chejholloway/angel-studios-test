@@ -63,7 +63,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="flex min-h-screen flex-col">
       <a
         href="#main-content"
         className="skip-link"
